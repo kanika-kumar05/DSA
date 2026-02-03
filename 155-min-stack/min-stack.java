@@ -16,7 +16,7 @@ class MinStack {
     
     public void pop() {
         int removed=st.pop();
-        if(removed<=minStack.peek()){
+        if(removed==minStack.peek()){
             minStack.pop();
         }
     }
