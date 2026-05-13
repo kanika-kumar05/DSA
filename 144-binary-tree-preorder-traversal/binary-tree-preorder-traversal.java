@@ -31,7 +31,7 @@ class Solution {
         List<Integer> arr=new ArrayList<>();
         if(root==null) return arr;
         Stack<TreeNode> st=new Stack<>();
-        st.push(root);
+        st.add(root);
 
         while(!st.isEmpty()){
             TreeNode curr=st.pop();
@@ -44,6 +44,7 @@ class Solution {
                 st.push(curr.left);
             }
         }
+        
         return arr;
     }
     
