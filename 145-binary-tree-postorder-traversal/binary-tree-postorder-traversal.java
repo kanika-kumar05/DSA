@@ -30,11 +30,10 @@ class Solution {
 
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> arr=new ArrayList<>();
-        if(root==null) return arr;
+        if(root==null)return arr;
         Stack<TreeNode> st=new Stack<>();
         TreeNode curr=root;
-        TreeNode lastVisited=null;
-
+        
         while(curr!=null || !st.isEmpty()){
             if(curr!=null){
                 st.push(curr);
@@ -51,14 +50,12 @@ class Solution {
                         st.pop();
                         arr.add(temp.val);
                     }
-
                 }
                 else{
                     curr=temp;
                 }
             }
         }
-
         return arr;
-        }
+    }
 }
