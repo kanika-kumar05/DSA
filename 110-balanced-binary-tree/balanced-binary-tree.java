@@ -15,19 +15,21 @@
  */
 class Solution {
     public static int findLeft(TreeNode node){
-        if(node==null) return 0;
-        int depth=0;
+        if(node==null)return 0;
+        
         int left=findLeft(node.left);
-        int right=findLeft(node.right);
+        int right=findRight(node.right);
         return 1+Math.max(left,right);
     }
+
     public static int findRight(TreeNode node){
-        if(node==null) return 0;
-        int depth=0;
+        if(node==null)return 0;
+        
         int left=findLeft(node.left);
-        int right=findLeft(node.right);
+        int right=findRight(node.right);
         return 1+Math.max(left,right);
     }
+
     public boolean isBalanced(TreeNode root) {
         if(root==null)return true;
 
@@ -39,7 +41,7 @@ class Solution {
         boolean leftH=isBalanced(root.left);
         boolean rightH=isBalanced(root.right);
 
-        if(!leftH || !rightH) return false;
+        if(!leftH || !rightH)return false;
         return true;
     }
 }
