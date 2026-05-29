@@ -26,15 +26,17 @@ class Solution {
                 else{
                     curr.right=new TreeNode(val);
                     break;
-                }
+                } 
+                
             }
             else{
-                    if(curr.left!=null)curr=curr.left;
-                    else{
-                        curr.left=new TreeNode(val);
-                        break;
-                    }
-                }
+                if(curr.left!=null)curr=curr.left;
+                else{
+                    curr.left=new TreeNode(val);
+                    break;
+                } 
+                
+            }
         }
         return root;
     }
