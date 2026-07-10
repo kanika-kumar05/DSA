@@ -10,7 +10,7 @@ class Solution {
                 count--;
             }
         }
-        maxCount=Math.max(count,maxCount);
+        // maxCount=Math.max(count,maxCount);
         return maxCount;
     }
 }
