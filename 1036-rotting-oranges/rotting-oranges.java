@@ -1,21 +1,21 @@
 class Pair{
-    int row,col,time;
-
-    Pair(int row,int col,int time){
+    int row;
+    int col;
+    int tm;
+    Pair(int row,int col,int tm){
         this.row=row;
         this.col=col;
-        this.time=time;
+        this.tm=tm;
     }
 }
 class Solution {
     public int orangesRotting(int[][] grid) {
         int n=grid.length;
         int m=grid[0].length;
-
-        Queue<Pair> q=new LinkedList<>();
+        Queue<Pair>q=new LinkedList<>();
         int[][] vis=new int[n][m];
-        int countFresh=0;
 
+        int countFresh=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==2){
@@ -28,27 +28,27 @@ class Solution {
                 if(grid[i][j]==1)countFresh++;
             }
         }
-        int tm=0;
-        int dRow[]={-1,0,+1,0};
-        int dCol[]={0,1,0,-1};
-        int cnt=0;
+        int count=0;
+        int time=0;
+        int[] dRow={-1,0,1,0};
+        int[] dCol={0,1,0,-1};
         while(!q.isEmpty()){
             int r=q.peek().row;
             int c=q.peek().col;
-            int t=q.peek().time;
-            tm=Math.max(t,tm);
+            int t=q.peek().tm;
+            time=Math.max(t,time);
             q.remove();
             for(int i=0;i<4;i++){
-                int nrow=r+dRow[i];
-                int ncol=c+dCol[i];
-                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && vis[nrow][ncol]==0 && grid[nrow][ncol]==1){
-                    q.add(new Pair(nrow,ncol,t+1));
-                    vis[nrow][ncol]=2;
-                    cnt++;
+                int nRow=r+dRow[i];
+                int nCol=c+dCol[i];
+                if(nRow>=0 && nRow<n && nCol>=0 && nCol<m && grid[nRow][nCol]==1 && vis[nRow][nCol]==0){
+                    q.add(new Pair(nRow,nCol,t+1));
+                    vis[nRow][nCol]=2;
+                    count++;
                 }
             }
         }
-        if(cnt!=countFresh)return -1;
-        return tm;
+        if(count!=countFresh)return -1;
+        return time;
     }
 }
