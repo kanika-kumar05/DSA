@@ -1,35 +1,37 @@
 class Pair{
-    String first;
-    int second;
-    Pair(String first,int second){
-        this.first=first;
-        this.second=second;
+    String word;
+    int time;
+    Pair(String word,int time){
+        this.word=word;
+        this.time=time;
     }
 }
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Queue<Pair> q=new LinkedList<>();
-        q.add(new Pair(beginWord,1));
-        Set<String> st=new HashSet<String>();
-        int len=wordList.size();
-        for(int i=0;i<len;i++){
-            st.add(wordList.get(i));
+        Queue<Pair>q=new LinkedList<>();
+        HashSet<String> hs=new HashSet<String>();
+        for(int i=0;i<wordList.size();i++){
+            hs.add(wordList.get(i));
         }
-        st.remove(beginWord);
+        hs.remove(beginWord);
+        q.add(new Pair(beginWord,1));
         while(!q.isEmpty()){
-            String word=q.peek().first;
-            int steps=q.peek().second;
+            String word=q.peek().word;
+            int time=q.peek().time;
             q.remove();
-            if(word.equals(endWord)==true)return steps;
+            if(word.equals(endWord)==true)return time;
             for(int i=0;i<word.length();i++){
                 for(char ch='a';ch<='z';ch++){
                     char[] replacedArray=word.toCharArray();
                     replacedArray[i]=ch;
                     String replacedWord=new String(replacedArray);
-                    if(st.contains(replacedWord)==true){
-                        st.remove(replacedWord);
-                        q.add(new Pair(replacedWord,steps+1));
+
+                    // if it exists in set
+                    if(hs.contains(replacedWord)==true){
+                        q.add(new Pair(replacedWord,time+1));
+                        hs.remove(replacedWord);
                     }
+                    
                 }
             }
         }
