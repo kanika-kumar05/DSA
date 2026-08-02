@@ -6,7 +6,7 @@ class Solution {
         while(i>=0){
             if(st.isEmpty()){
                 hm.put(nums2[i],-1);
-                st.push(nums2[i]);
+               
             }
             else{
                 while(!st.isEmpty() && st.peek()<=nums2[i]){
