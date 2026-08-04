@@ -1,28 +1,32 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
-        List<Integer> st=new ArrayList<>();
-
-        for(int i=0;i<asteroids.length;i++){
-            if(asteroids[i]>0){
-                st.add(asteroids[i]);
+        Stack<Integer> st=new Stack<>();
+        for(int asteroid:asteroids){
+            boolean destroyed=false;
+            // destroying condition
+            while(!st.isEmpty() && asteroid<0 && st.peek()>0){
+                if(st.peek()<Math.abs(asteroid)){
+                    st.pop();
+                    continue;
+                }
+                if(st.peek()==Math.abs(asteroid)){
+                    st.pop();
+                    destroyed=true;
+                    break;
+                }
+                else{
+                    destroyed=true;
+                    break;  
+                }
             }
-            else{
-                while(!st.isEmpty() && st.get(st.size()-1)>0 && st.get(st.size()-1)<Math.abs(asteroids[i])){
-                    st.remove(st.size()-1);
-                }
-                if(!st.isEmpty() && st.get(st.size()-1)==Math.abs(asteroids[i])){
-                    st.remove(st.size()-1);
-                }
-                else if(st.isEmpty() || st.get(st.size()-1)<0){
-                    st.add(asteroids[i]);
-                }
+            if(!destroyed){
+                st.push(asteroid);
             }
-            
         }
-        int[] res=new int[st.size()];
-            for(int i=0;i<st.size();i++){
-                res[i]=st.get(i);
-            }
-        return res;
+        int[] arr=new int[st.size()];
+        for(int i=st.size()-1;i>=0;i--){
+            arr[i]=st.pop();
+        }
+        return arr;
     }
 }
