@@ -40,7 +40,7 @@ class Solution {
         int m = matrix[0].length;
         int[] heights = new int[m];
         int max = Integer.MIN_VALUE;
-        Arrays.fill(heights, 0);
+        // Arrays.fill(heights, 0);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (matrix[i][j] == '1')
