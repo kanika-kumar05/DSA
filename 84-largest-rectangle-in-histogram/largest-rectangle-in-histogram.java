@@ -1,37 +1,46 @@
 class Solution {
-    public int largestRectangleArea(int[] arr) {
-        int n = arr.length;
-        int[] leftMin = new int[n], rightMin = new int[n];
-
-        Fn(arr, leftMin, 1, -1, 0);
-        Fn(arr, rightMin, -1, n, n - 1);
-
-        int max = 0;
-
-        for (int i = 0; i < n; i++) {
-            int len = rightMin[i] - leftMin[i] - 1;
-            max = Math.max(max, len * arr[i]);
+    public int[] findnse(int[] num){
+        Stack<Integer> st=new Stack<>();
+        int n=num.length;
+        int[] res=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && num[st.peek()]>=num[i]){
+                st.pop();
+            }
+            
+            if(st.isEmpty())res[i]=n;
+            else res[i]=st.peek();
+            st.push(i);
         }
+        return res;
+    }
+    public int[] findpse(int[] num){
+        Stack<Integer> st=new Stack<>();
+        int n=num.length;
+        int[] res=new int[n];
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && num[st.peek()]>=num[i]){
+                st.pop();
+            }
 
+            if(st.isEmpty())res[i]=-1;
+            else res[i]=st.peek();
+            st.push(i);
+        }
+        return res;
+    }
+    public int largestRectangleArea(int[] heights) {
+        int n=heights.length;
+        int[] nse=findnse(heights);
+        int[] pse=findpse(heights);
+        Stack<Integer> st=new Stack<>();
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            max=Math.max(max,heights[i]*(nse[i]-pse[i]-1));
+
+        }
         return max;
     }
 
-    private static void Fn(int[] arr, int[] res, int incre, int inValid, int st) {
-        int n = arr.length;
-        Stack<Integer> stk = new Stack<>();
 
-        for (int i = st; i < n && i >= 0; i += incre) {
-            while (!stk.isEmpty() && arr[i] <= arr[stk.peek()]) {
-                stk.pop();
-            }
-
-            if (stk.isEmpty()) {
-                res[i] = inValid;
-            } else {
-                res[i] = stk.peek();
-            }
-
-            stk.push(i);
-        }
-    }
 }
