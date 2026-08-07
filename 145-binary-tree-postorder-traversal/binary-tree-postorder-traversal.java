@@ -14,16 +14,46 @@
  * }
  */
 class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
+    // public List<Integer> postorderTraversal(TreeNode root) {
+    //     ArrayList<Integer> arr=new ArrayList<>();
+    //     if(root==null)return arr;
+    //     helper(root,arr);
+    //     return arr;
+    // }
+    // public void helper(TreeNode root,ArrayList<Integer> arr){
+    //     if(root==null)return;
+    //     helper(root.left,arr);
+    //     helper(root.right,arr);
+    //     arr.add(root.val);
+    // }
+
+    public List<Integer> postorderTraversal(TreeNode root){
         ArrayList<Integer> arr=new ArrayList<>();
         if(root==null)return arr;
-        helper(root,arr);
+        Stack<TreeNode> st=new Stack<>();
+        TreeNode curr=root;
+        while(curr!=null || !st.isEmpty()){
+            if(curr!=null){
+                st.push(curr);
+                curr=curr.left;
+            }
+            else{
+                TreeNode temp=st.peek().right;
+                if(temp==null){
+                    temp=st.peek();
+                    st.pop();
+                    arr.add(temp.val);
+                    while(!st.isEmpty() && temp==st.peek().right){
+                        temp=st.peek();
+                        st.pop();
+                        arr.add(temp.val);
+                    }
+                }
+                else{
+                    curr=temp;
+                }
+            }
+        }
         return arr;
-    }
-    public void helper(TreeNode root,ArrayList<Integer> arr){
-        if(root==null)return;
-        helper(root.left,arr);
-        helper(root.right,arr);
-        arr.add(root.val);
     }
 }
