@@ -13,15 +13,7 @@
  *     }
  * }
  */
- class TreeNode{
-    int data;
-    TreeNode left,right;
-    TreeNode(int data){
-        this.data=data;
-        left=null;
-        right=null;
-    }
- }
+
 class Tuple{
     TreeNode node;
     int vert,col;
@@ -53,7 +45,7 @@ class Solution {
             if(!map.get(y).containsKey(x)){
                 map.get(y).put(x,new PriorityQueue<>());
             }
-            map.get(y).get(x).offer(node.data);
+            map.get(y).get(x).offer(node.val);
 
             if(node.left!=null){
                 q.offer(new Tuple(node.left,y-1,x+1));
