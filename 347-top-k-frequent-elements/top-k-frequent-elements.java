@@ -12,7 +12,7 @@ class Solution {
                 pq.poll();
             }
         }
-        int[] res=new int[pq.size()];
+        int[] res=new int[k];
         int i=0;
         while(!pq.isEmpty()){
             res[i]=pq.poll();
