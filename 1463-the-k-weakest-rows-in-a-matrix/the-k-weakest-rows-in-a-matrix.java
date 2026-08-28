@@ -3,7 +3,13 @@ class Solution {
         int r = mat.length;
         int c = mat[0].length;
 
-        List<int[]> list = new ArrayList<>();
+        PriorityQueue<int[]> pq=new PriorityQueue<>((e1,e2)->{
+            if(e1[0]==e2[0]){
+                return e2[1]-e1[1];
+            }
+            return e2[0]-e1[0];
+        });
+
         for (int i = 0; i < r; i++) {
             int count = 0;
             for (int j = 0; j < c; j++) {
@@ -11,21 +17,19 @@ class Solution {
                     break;
                 count++;
             }
-            list.add(new int[] {
-                    count, i
+            pq.add(new int[]{
+                count,i
             });
+            if(pq.size()>k){
+                pq.poll();
+            }
         }
 
-        Collections.sort(list,(e1,e2)->{
-            if(e1[0]==e2[0]){
-                return e1[1]-e2[1];
-            }
-            return e1[0]-e2[0];
-        });
+        
 
         int[] res=new int[k];
-        for(int i=0;i<k;i++){
-            res[i]=list.get(i)[1];
+        for(int i=k-1;i>=0;i--){
+            res[i]=pq.poll()[1];
         }
         return res;
     }
