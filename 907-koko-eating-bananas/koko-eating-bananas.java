@@ -2,7 +2,7 @@ class Solution {
     public int find(int[] piles,int k){
         int total=0;
         for(int i=0;i<piles.length;i++){
-            total+=Math.ceil((double)piles[i]/(double)k);
+            total+=Math.ceil((double)piles[i]/k);
         }
         return total;
     }
