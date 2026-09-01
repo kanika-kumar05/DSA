@@ -1,12 +1,10 @@
 class Solution {
-    public int[] minmax(int[] arr){
-        int min=Integer.MAX_VALUE;
+    public int minmax(int[] arr){
         int max=Integer.MIN_VALUE;
         for(int i=0;i<arr.length;i++){
-            if(arr[i]<min)min=arr[i];
             if(arr[i]>max)max=arr[i];
         }
-        return new int[]{min,max};
+        return max;
     }
     public int find(int[] nums,int k){
         int sum=0;
@@ -16,8 +14,9 @@ class Solution {
         return sum;
     }
     public int smallestDivisor(int[] nums, int threshold) {
-        int[] res=minmax(nums);
-        int low=1,high=res[1];
+        
+        int low=1;
+        int high=minmax(nums);
         int ans=0;
         while(low<=high){
             int mid=(low+high)/2;
