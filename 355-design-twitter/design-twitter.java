@@ -1,10 +1,7 @@
 class Twitter {
-    // hashmap->users->hashSet->following
-    // hashmap->users->list->tweets
-    HashMap<Integer,HashSet<Integer>> following;
-    HashMap<Integer,List<int[]>> tweets;
+    HashMap<Integer, HashSet<Integer>> following;
+    HashMap<Integer, List<int[]>> tweets;
     int time;
-
     public Twitter() {
         following=new HashMap<>();
         tweets=new HashMap<>();
@@ -18,17 +15,16 @@ class Twitter {
     }
     
     public List<Integer> getNewsFeed(int userId) {
-        PriorityQueue<int[]> pq=new PriorityQueue<>((e1,e2)->{
-            return e2[1]-e1[1];
-        });
+        PriorityQueue<int[]> pq=new PriorityQueue<>((e1,e2)->e2[1]-e1[1]);
 
-        // add user tweets
+        // add users feed
         if(tweets.containsKey(userId)){
             for(int[] tweet:tweets.get(userId)){
                 pq.add(tweet);
             }
         }
-        // add following ke tweets
+
+        // add following tweets
         if(following.containsKey(userId)){
             for(int followee:following.get(userId)){
                 if(tweets.containsKey(followee)){
@@ -38,23 +34,25 @@ class Twitter {
                 }
             }
         }
-        List<Integer> ans=new ArrayList<>();
+
+        // retrive top 10
+        List<Integer> arr=new ArrayList<>();
         int count=0;
         while(!pq.isEmpty() && count<10){
-            int[] tweet=pq.poll();
-            ans.add(tweet[0]);
+            int id=pq.poll()[0];
+            arr.add(id);
             count++;
         }
-        return ans;
+        return arr;
     }
     
     public void follow(int followerId, int followeeId) {
         following.putIfAbsent(followerId,new HashSet<>());
-        following.get(followerId).add(followeeId);
-    }   
+        following.get(followerId).add(followeeId); // following[follower] = people whom this user follows
+    }
     
     public void unfollow(int followerId, int followeeId) {
-        if (following.containsKey(followerId)) {
+        if(following.containsKey(followerId)){
             following.get(followerId).remove(followeeId);
         }
     }
