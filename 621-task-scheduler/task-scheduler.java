@@ -1,13 +1,19 @@
 class Solution {
     public int leastInterval(char[] tasks, int n) {
+        // 1. count freq of all ele
         int[] freq=new int[26];
         for(int i=0;i<tasks.length;i++){
             freq[tasks[i]-'A']++;
         }
+
+        // 2. maxHeap to use ele with high freq first
         PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+
+        // 3. add to pq
         for(int f:freq){
             if(f>0)pq.add(f);
         }
+
         int time=0;
         Queue<int[]> q=new LinkedList<>();
         while(!pq.isEmpty() || !q.isEmpty()){
@@ -15,9 +21,7 @@ class Solution {
             if(!pq.isEmpty()){
                 int f=pq.poll();
                 f--;
-                if(f>0){
-                    q.add(new int[]{f,time+n});
-                }
+                if(f>0)q.add(new int[]{f,time+n});
             }
             if(!q.isEmpty() && q.peek()[1]==time){
                 pq.add(q.poll()[0]);
